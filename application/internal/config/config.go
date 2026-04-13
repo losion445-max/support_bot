@@ -6,7 +6,8 @@ import (
 )
 
 type Config struct {
-	Token string
+	Token   string
+	AdminID string
 }
 
 func LoadConfig() (*Config, error) {
@@ -15,7 +16,13 @@ func LoadConfig() (*Config, error) {
 		return nil, errors.New("TOKEN env not defined")
 	}
 
+	adminID := os.Getenv("ADMIN_ID")
+	if adminID == "" {
+		return nil, errors.New("ADMIN_ID env not defined")
+	}
+
 	return &Config{
-		Token: token,
+		Token:   token,
+		AdminID: adminID,
 	}, nil
 }
